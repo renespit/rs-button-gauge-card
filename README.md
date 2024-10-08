@@ -122,11 +122,11 @@ Example:
         caption: Dishwasher - Uit
       - value: 'on'
         icon: mdi:dishwasher
-        color: var(--icon-switch-on)
+        color: var(--icon-switch-off)
         caption: Dishwasher - Aan
       - value: 'unavailable'
         icon: mdi:dishwasher
-        color: var(--icon-switch-on)
+        color: var(--icon-switch-unavailable)
         caption: |
                 <marquee scrollamount=10
                 style='
@@ -161,6 +161,364 @@ Example:
                 display: flex;
             } 
 
-  icon-switch-on: "yellow"
-  icon-switch-off: "rgb(68, 115, 158)"
-  icon-switch-unavailable: "darkgray"
+### Embedded CSS-styling
+        #card {
+            width: 100%;
+            height: calc(100% - 10px);
+            padding: 0px;
+            margin: 0px;
+            margin-top: -5px;
+            cursor: pointer;
+        }
+
+        #main {
+            width: 100%;
+            display: grid;
+        }
+
+        #container {
+            width: 100%;
+            padding: 0px;
+        }
+
+        tr#top-container {
+            border: 0px solid transparent;
+            margin: 0px;
+            padding: 0px;
+            borderradius: 0px;
+            height: auto;
+            width: 100%;
+            vertical-align: center;
+            text-align: center;
+        }
+
+        tr#mid-container {
+            border: 0px solid transparent;
+            margin: 0px;
+            padding: 0px;
+            borderradius: 0px;
+            height: 100%;
+            width: auto;
+            vertical-align: center;
+            text-align: center;
+        }
+                                
+        tr#bottom-container {
+            border: 0px solid transparent;
+            margin: 0px;
+            padding: 0px;
+            borderradius: 0px;
+            height: auto;
+            width: 100%;
+            vertical-align: center;
+            text-align: center;
+        }
+
+        td#icon-container {
+            border: 0px solid transparent;
+            margin: 0px;
+            padding: 0px;
+            borderradius: 0px;
+            height: 100%;
+            width: 100%;
+            vertical-align: center;
+            text-align: center;
+        }
+
+        td#donut-icon-container {
+            position: absolute;
+            top: calc(50% - (calc(25vw / 6)) / 2);
+            border: 0px solid transparent;
+            margin: 0px;
+            padding: 0px;
+            borderradius: 0px;
+            height: 100%;
+            width: 100%;
+            vertical-align: center;
+            text-align: center;
+        }
+                                
+        td#diagram-icon-container {
+            border: 0px solid transparent;
+            margin: 0px;
+            padding: 0px;
+            borderradius: 0px;
+            height: 100%;            
+            vertical-align: center;
+            text-align: center;
+        }
+
+        #right-container {
+            border: 0px solid transparent;
+            margin: 0px;
+            padding: 0px;
+            borderradius: 0px;
+            height: 100%;
+            width: 100%;
+        }
+
+        td#caption {
+            height: 20px;
+            margin: 0px;
+            padding: 0px;
+        }
+
+        button {
+            align-items: center;
+            padding: 0px;
+            background-color: transparent;
+            color: white;
+            cursor: pointer;
+            border: none;
+        }
+
+        #caption {
+            font-size: 17.5px;
+            text-align: center;
+            width: 100%;
+        }
+
+        ha-icon {
+            --mdc-icon-size: calc(25vw / 6);
+        }
+
+        #body {
+            border: 0px solid transparent;
+            width: 100%;
+            display: grid;
+        }
+
+        div.tube {
+            background-color: darkgreen;
+            border-radius: 8px;
+            width: 100%;
+            height: 16px;
+        }
+
+        div.slider {
+            background-color: lightgreen;
+            border-radius: 8px;
+            height: 16px;
+            font-size: 1px;
+        }
+
+        #explanations {
+            display: flex;
+        }
+
+        #name {
+            font-size: 17.5px;
+            font-weight: normal;
+            color: black;
+            width: 50%;
+            display: flex;
+        }
+
+        #value {
+            font-size: 17.5px;
+            font-weight: normal;
+            color: black;
+            text-align: right;
+            width: 50%;
+        }
+
+        #measurement {
+            font-size: 17.5px;
+            font-weight: normal;
+            color: black;
+            text-align: right;
+        }
+
+        #markers {
+            display: flex;
+        }
+
+        #minmark {
+            padding-top: 0px;
+            font-size: 14px;
+            font-weight: normal;
+            color: white;
+            width: 50%;
+            text-align: left;
+        }
+
+        #maxmark {
+            padding-top: 0px;
+            font-size: 14px;
+            font-weight: normal;
+            color: white;
+            width: 50%;
+            text-align: right;
+        }
+
+        #title {
+            padding: 5px;
+            font-size: 17.5px;
+            font-weight: normal;
+            color: black;
+            text-align: center;
+            white-space: nowrap;
+        }
+
+        #caption {
+            font-size: 17.5px;
+            font-weight: normal;
+            color: black;
+            text-align: center;
+            white-space: nowrap;
+        }
+
+        /* iPhone 12 en vergelijkbare apparaten */
+        @media (min-width: 390px) and (max-width: 414px) {
+            ha-icon {
+                --mdc-icon-size: calc(30vw / 2.5);
+            }
+
+            #title {                
+                font-size: 10px;
+                font-weight: normal;
+                color: black;
+                text-align: center;
+                white-space: nowrap;
+            }
+
+            #caption {
+                font-size: 10px;
+                font-weight: normal;
+                color: black;
+                text-align: center;
+                white-space: nowrap;
+            }
+
+            #name {
+                font-size: 10px;
+                font-weight: normal;
+                color: black;
+                width: 50%;
+                display: flex;
+            }
+
+            #value {
+                font-size: 10px;
+                font-weight: normal;
+                color: black;
+                text-align: right;
+                width: 50%;
+            }
+
+            #measurement {
+                font-size: 10px;
+                font-weight: normal;
+                color: black;
+                text-align: right;
+            }
+
+            #minmark {
+                display: none;
+                padding-top: 0px;
+                font-size: 10px;
+                font-weight: normal;
+                color: white;
+                width: 50%;
+                text-align: left;
+            }
+
+            #maxmark {
+                display: none;
+                padding-top: 0px;
+                font-size: 10px;
+                font-weight: normal;
+                color: white;
+                width: 50%;
+                text-align: right;
+            }
+        }
+                                
+        /* iPad Mini en vergelijkbare apparaten */
+        @media (min-width: 900px) and (max-width: 1200px) {
+            ha-icon {
+                --mdc-icon-size: calc(25vw / 6);
+            }
+                                
+            tr#bottom-container {
+                border: 0px solid transparent;
+                margin: 0px;
+                margin-bottom: 20px;
+                padding: 0px;
+                padding-bottom: 0px;
+                borderradius: 0px;
+                height: auto;
+                width: 100%;
+                vertical-align: center;
+                text-align: center;
+            }                                
+
+            #title {                
+                font-size: 12px;
+                font-weight: normal;
+                color: black;
+                text-align: center;
+                white-space: nowrap;
+            }
+
+            #caption {
+                font-size: 12px;
+                font-weight: normal;
+                color: black;
+                text-align: center;
+                white-space: nowrap;
+            }
+
+            #name {
+                font-size: 12px;
+                font-weight: normal;
+                color: black;
+                width: 50%;
+                display: flex;
+            }
+
+            #value {
+                font-size: 12px;
+                font-weight: normal;
+                color: black;
+                text-align: right;
+                width: 50%;
+            }
+
+            #measurement {
+                font-size: 12px;
+                font-weight: normal;
+                color: black;
+                text-align: right;
+            }
+
+            #minmark {
+                display: none;
+                padding-top: 0px;
+                font-size: 10px;
+                font-weight: normal;
+                color: white;
+                width: 50%;
+                text-align: left;
+            }
+
+            #maxmark {
+                display: none;
+                padding-top: 0px;
+                font-size: 10px;
+                font-weight: normal;
+                color: white;
+                width: 50%;
+                text-align: right;
+            }
+        }  
+
+### Changing CSS 
+If you want to change CSS, then add this to your style configuration in your yaml file
+
+Example:
+    
+    styles: |
+            ha-icon {
+                --mdc-icon-size: calc(25vw / 4);
+            }
