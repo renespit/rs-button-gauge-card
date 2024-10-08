@@ -53,31 +53,31 @@ Add in your configuration.yaml the lines:
 ***
 ### Options
 
-| Name         | Type                     | Default                                 | Supported options                                          | Description                                                                                         |
-|--------------|--------------------------|-----------------------------------------|------------------------------------------------------------|-----------------------------------------------------------------------------------------------------|
-| type         | string                   | required                                | <pre>custom:rs-button-gauge-card</pre>                     | Start of a beautiful card :)                                                                        |
-| entity       | string                   | required                                | <pre>switch.dishwasher</pre> <pre>input_button.lamp1</pre> | Almost any entity is legit. If you don't have a entity create a dummy entity (see below this table) |
-| sensor       | string                   | required                                | <pre>sensor.dishwasher</pre>                               | Every sensor is legit. If you don't have a sensor create a dummy sensor (see below this table)      |
-| measurement  | string                   | optional                                | Examples: "°C",W ,L, etc.                                  | Just a text that gives the measurement                                                              |
-| name         | string                   | optional                                | Something that explains what the sensor is measuring (examples: P, T or Temp., Water, Gas, etc.)                                                                 | &nbsp; | 
-| min          | value                    | optional                                | numbers, example: <pre>-123.45678</pre>                    | Measuring room temp. then <pre>min: 0</pre>. If you have a 16 amp fuse and measuring power then you should use <pre>min: 0</pre>                                 |
-| max          | value                    | optional (required if min is used)      | numbers, example: <pre>-123.45678</pre>                    | Measuring room temp. then <pre>max: 30</pre>. If you have a 16 amp fuse and measuring power then you should use <pre>max: 3600</pre>                             |
-| miniicon     | mdi:icon                 | optional                                | mdi:icons (see: <a href='https://pictogrammers.com/library/mdi/' target='_new'>Icon Library</a>) | &nbsp; |
-| icon         | mdi:icon                 | optional                                | mdi:icons (see: <a href='https://pictogrammers.com/library/mdi/' target='_new'>Icon Library</a>) | &nbsp; | 
-| color        | color #/rgb/named        | optional                                | #012345, RGB("01","23","45"), lightgreen                                                         | &nbsp; |
-| title        | string/html or plain     | optional                                | Plain text<pre>plain text</pre>HTML-code<pre>\|<br />\<a href='https://community.home-assistant.io' target='_new'\>HA Community\</a\></pre>      | &nbsp; |
-| caption      | string/html or plain     | optional                                | Plain text<pre>plain text</pre>HTML-code<pre>\|<br />\<a href='https://community.home-assistant.io' target='_new'\>HA Community\</a\></pre>      | &nbsp; |
-| show_button  | boolean                  | optional                                | true or false <pre>true/false</pre>                                                                                                              | &nbsp; |            
-| show_diagram | boolean                  | optional                                | true or false <pre>true/false</pre>                                                                                                              | &nbsp; |            
-| show_donut   | boolean                  | optional                                | true or false <pre>true/false</pre>                                                                                                              | &nbsp; |            
-| show_caption | boolean                  | optional                                | true or false <pre>true/false</pre>                                                                                                              | &nbsp; |            
-| show_info    | boolean                  | optional                                | true or false <pre>true/false</pre>                                                                                                              | &nbsp; |            
-| state        | array                    | required (if empty, then <pre>use state: []</pre>) | &nbsp; |
+| Name         | Type                     | Default                                 | Supported options                                          |
+|--------------|--------------------------|-----------------------------------------|------------------------------------------------------------|
+| type         | string                   | required                                | <pre>custom:rs-button-gauge-card</pre>                     |
+| entity       | string                   | required                                | <pre>switch.dishwasher</pre> <pre>input_button.lamp1</pre> |
+| sensor       | string                   | required                                | <pre>sensor.dishwasher</pre>                               |
+| measurement  | string                   | optional                                | Examples: "°C",W ,L, etc.                                  |
+| name         | string                   | optional                                | Something that explains what the sensor is measuring (examples: P, T or Temp., Water, Gas, etc.) | 
+| min          | value                    | optional                                | numbers, example: <pre>-123.45678</pre>                    |
+| max          | value                    | optional (required if min is used)      | numbers, example: <pre>-123.45678</pre>                    |
+| miniicon     | mdi:icon                 | optional                                | mdi:icons (see: <a href='https://pictogrammers.com/library/mdi/' target='_new'>Icon Library</a>) |
+| icon         | mdi:icon                 | optional                                | mdi:icons (see: <a href='https://pictogrammers.com/library/mdi/' target='_new'>Icon Library</a>) | 
+| color        | color #/rgb/named        | optional                                | #012345, RGB("01","23","45"), lightgreen                                                         |
+| title        | string/html or plain     | optional                                | Plain text<pre>plain text</pre>HTML-code<pre>\<p\>Before proceeding, \<strong\>make sure you put on your safety goggles\</strong\>.\</p\></pre>      |
+| caption      | string/html or plain     | optional                                | Plain text<pre>plain text</pre>HTML-code<pre>\<p\>Before proceeding, \<strong\>make sure you put on your safety goggles\</strong\>.\</p\></pre>      |
+| show_button  | boolean                  | optional                                | true or false <pre>true/false</pre>                                                                                                              |            
+| show_diagram | boolean                  | optional                                | true or false <pre>true/false</pre>                                                                                                              |            
+| show_donut   | boolean                  | optional                                | true or false <pre>true/false</pre>                                                                                                              |            
+| show_caption | boolean                  | optional                                | true or false <pre>true/false</pre>                                                                                                              |            
+| show_info    | boolean                  | optional                                | true or false <pre>true/false</pre>                                                                                                              |            
+| state        | array                    | required (if empty, then <pre>use state: []</pre>) | <pre>state:<br />    - value: 'off'<br />      icon: mdi:dishwasher<br />      color: var(--icon-switch-on)<br />      caption: Dishwasher - Uit<br />    - value: 'on'<br />      icon: mdi:dishwasher<br />      color: var(--icon-switch-on)<br />      caption: Dishwasher - Aan<br />    - value: 'unavailable'<br />      icon: mdi:dishwasher<br />      color: var(--icon-switch-on)<br />      caption: Diswasher - Unavailable</pre> | 
 | - value      | 'on'/'off'/'unavailable' | optional                                | <pre>value: 'on'</pre><pre>value: 'off'</pre><pre>value: 'unavailable'</pre>
-| - icon       | mdi:icon                 | optional                                | mdi:icons (see: <a href='https://pictogrammers.com/library/mdi/' target='_new'>Icon Library</a>) | &nbsp; |
-| - color      | color #/rgb/named        | optional                                | #012345, RGB("01","23","45"), lightgreen                                                         | &nbsp; |
-| - caption    | string/html or plain     | optional                                | Plain text<pre>plain text</pre>HTML-code<pre>\|<br />\<a href='https://community.home-assistant.io' target='_new'\>HA Community\</a\></pre>      | &nbsp; |
-| styles       | string                   | optional                                | <pre>\|<br />      ha-card {<br />        margin: 0px !important;<br />        margin-left: 0px !important;<br />        margin-right: 10px !important;<br />        margin-top: 10px !important;<br />        border-radius: 0px;<br />        border-top: 1px solid #DDDDDD !important;<br />        border-left: 1px solid #DDDDDD !important;<br />        border-right: 1px solid #000 important;<br />        border-bottom: 1px solid #000 !important;<br />        background-color: #CACACA !important;<br />        -webkit-box-shadow: 5px 5px 12px -5px rgba(0,0,0,0.84);<br />        -moz-box-shadow: 5px 5px 12px -5px rgba(0,0,0,0.84);<br />        box-shadow: 5px 5px 12px -5px rgba(0,0,0,0.84);<br />        width: calc(100% - 10px) !important;<br />        height: calc(100% - 10px) !important;<br />        padding: 0px;<br />        display: flex;<br />        } </pre> | &nbsp; |
+| - icon       | mdi:icon                 | optional                                | mdi:icons (see: <a href='https://pictogrammers.com/library/mdi/' target='_new'>Icon Library</a>) |
+| - color      | color #/rgb/named        | optional                                | #012345, RGB("01","23","45"), lightgreen                                                         |
+| - caption    | string/html or plain     | optional                                | Plain text<pre>plain text</pre>HTML-code<pre>\<p\>Before proceeding, \<strong\>make sure you put on your safety goggles\</strong\>.\</p\></pre>      |
+| styles       | string                   | optional                                | <pre>\|<br />      ha-card {<br />        margin: 0px !important;<br />        margin-left: 0px !important;<br />        margin-right: 10px !important;<br />        margin-top: 10px !important;<br />        border-radius: 0px;<br />        border-top: 1px solid #DDDDDD !important;<br />        border-left: 1px solid #DDDDDD !important;<br />        border-right: 1px solid #000 important;<br />        border-bottom: 1px solid #000 !important;<br />        background-color: #CACACA !important;<br />        -webkit-box-shadow: 5px 5px 12px -5px rgba(0,0,0,0.84);<br />        -moz-box-shadow: 5px 5px 12px -5px rgba(0,0,0,0.84);<br />        box-shadow: 5px 5px 12px -5px rgba(0,0,0,0.84);<br />        width: calc(100% - 10px) !important;<br />        height: calc(100% - 10px) !important;<br />        padding: 0px;<br />        display: flex;<br />        } </pre> |
 
 ### Creation of a dummy switch and sensor
 #### Dummy sensor and switch
@@ -109,7 +109,7 @@ Example:
     max: 3600
     icon: mdi:dishwasher
     color: green
-    caption: Vaatwasser
+    caption: Dishwasher
     show_button: true
     show_diagram: true
     show_diagram: false
@@ -119,11 +119,11 @@ Example:
       - value: 'off'
         icon: mdi:dishwasher
         color: var(--icon-switch-on)
-        caption: Vaatwasser - Uit
+        caption: Dishwasher - Uit
       - value: 'on'
         icon: mdi:dishwasher
         color: var(--icon-switch-on)
-        caption: Vaatwasser - Aan
+        caption: Dishwasher - Aan
       - value: 'unavailable'
         icon: mdi:dishwasher
         color: var(--icon-switch-on)
@@ -139,7 +139,7 @@ Example:
                 background-color: transparent;
                 vertical-align: middle;
                 text-align: center;
-                display: flex;'>Vaatwasser - Bediening uitgeschakeld</marquee>
+                display: flex;'>Dishwasher - Bediening uitgeschakeld</marquee>
     styles: | 
             ha-card {
                 margin: 0px !important;
