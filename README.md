@@ -166,6 +166,34 @@ Example:
                 display: flex;
             } 
 
+### The power_toggle button in the remotecontrol
+
+      type: custom:rs-button-gauge-card
+      sensor: sensor.zero
+      icon: mdi:power
+      show_button: true
+      show_diagram: false
+      show_donut: false
+      show_caption: true
+      show_info: false
+      entity: remote.remotecontrol
+      styles: !include /config/churchlane/css/v4.0/rs-button-nogauge.css
+      state:
+        - value: 'off'
+          color: var(--icon-switch-off)
+        - value: 'on'
+          color: var(--icon-remotecontrol)
+        - value: 'unavailable'
+          color: var(--icon-switch-unavailable)
+      
+      tap_action:
+        action: call-service
+        service: send_command
+        service_data:
+          entity_id: remote.remotecontrol
+          device: samsung
+          command: power toggle
+
 ### Embedded CSS-styling
 
         table.container {            
