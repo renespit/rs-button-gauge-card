@@ -167,23 +167,13 @@ Example:
             } 
 
 ### Embedded CSS-styling
-        #card {
-            width: 100%;
-            height: calc(100% - 10px);
-            padding: 0px;
-            margin: 0px;
-            margin-top: -5px;
+
+        table.container {            
+            width: 100% !important;
+            height: 100% !important;
+            spacing: 0px;            
+            padding: 0px;  
             cursor: pointer;
-        }
-
-        #main {
-            width: 100%;
-            display: grid;
-        }
-
-        #container {
-            width: 100%;
-            padding: 0px;
         }
 
         tr#top-container {
@@ -191,10 +181,8 @@ Example:
             margin: 0px;
             padding: 0px;
             borderradius: 0px;
-            height: auto;
+            height: 20px !important;
             width: 100%;
-            vertical-align: center;
-            text-align: center;
         }
 
         tr#mid-container {
@@ -202,8 +190,8 @@ Example:
             margin: 0px;
             padding: 0px;
             borderradius: 0px;
-            height: 100%;
-            width: auto;
+            height: 100% !important;    
+            width: 10% !important;
             vertical-align: center;
             text-align: center;
         }
@@ -213,7 +201,7 @@ Example:
             margin: 0px;
             padding: 0px;
             borderradius: 0px;
-            height: auto;
+            height: 1%;
             width: 100%;
             vertical-align: center;
             text-align: center;
@@ -248,12 +236,32 @@ Example:
             margin: 0px;
             padding: 0px;
             borderradius: 0px;
-            height: 100%;            
+            height: 100% !important;    
+            width: 10% !important;
             vertical-align: center;
             text-align: center;
         }
+                                
+        td#button-icon-container {
+            border: 0px solid transparent;
+            margin: 0px;
+            padding: 0px;
+            borderradius: 0px;
+            height: calc(25vw / 6) !important;    
+            width: 10% !important;
+            vertical-align: center;
+            text-align: center;
+        }                
+                                
+        ha-icon {
+            --mdc-icon-size: calc(25vw / 6);
+        }     
+                                
+        ha-icon#miniicon {
+            --mdc-icon-size: 24px;
+        }                                    
 
-        #right-container {
+        td#right-container {
             border: 0px solid transparent;
             margin: 0px;
             padding: 0px;
@@ -262,6 +270,14 @@ Example:
             width: 100%;
         }
 
+        div#right-container {            
+            margin: 0px;
+            padding: 0px;
+            borderradius: 0px;
+            height: 100%;
+            width: calc(100% - 10px);
+        }
+                                
         td#caption {
             height: 20px;
             margin: 0px;
@@ -275,16 +291,16 @@ Example:
             color: white;
             cursor: pointer;
             border: none;
+            height: 100% !important;    
+            width: 10% !important;
+            vertical-align: center;
+            text-align: center;                                
         }
 
         #caption {
             font-size: 17.5px;
             text-align: center;
             width: 100%;
-        }
-
-        ha-icon {
-            --mdc-icon-size: calc(25vw / 6);
         }
 
         #body {
@@ -342,7 +358,7 @@ Example:
             padding-top: 0px;
             font-size: 14px;
             font-weight: normal;
-            color: white;
+            color: val(--primary-text-color);
             width: 50%;
             text-align: left;
         }
@@ -351,16 +367,15 @@ Example:
             padding-top: 0px;
             font-size: 14px;
             font-weight: normal;
-            color: white;
+            color: val(--primary-text-color);
             width: 50%;
             text-align: right;
         }
 
         #title {
-            padding: 5px;
             font-size: 17.5px;
             font-weight: normal;
-            color: black;
+            color: val(--primary-text-color);
             text-align: center;
             white-space: nowrap;
         }
@@ -368,7 +383,7 @@ Example:
         #caption {
             font-size: 17.5px;
             font-weight: normal;
-            color: black;
+            color: val(--primary-text-color);
             text-align: center;
             white-space: nowrap;
         }
@@ -464,6 +479,7 @@ Example:
                 color: black;
                 text-align: center;
                 white-space: nowrap;
+                padding: 0px;
             }
 
             #caption {
@@ -516,7 +532,8 @@ Example:
                 width: 50%;
                 text-align: right;
             }
-        }  
+        }                                
+
 
 ### Changing CSS 
 If you want to change CSS, then add this to your style configuration in your yaml file
