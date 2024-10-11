@@ -7,6 +7,11 @@ Dashboard example
 
 ![image](https://github.com/user-attachments/assets/3d092d0e-79c3-4342-be80-ceb96f5f6ddf)
 
+Remotecontrol example
+
+![image](https://github.com/user-attachments/assets/bb4ad57a-7d24-4c69-910b-055320be4325)
+
+
 ***
 
 ## Installation:
