@@ -49,7 +49,7 @@ class DonutChart extends LitElement {
 customElements.define('donut-chart', DonutChart);
 
 
-class RSGaugeCard extends LitElement {
+class RSButtonGaugeCard extends LitElement {
     static get properties() {
         return {
             hass: {},
@@ -87,22 +87,50 @@ class RSGaugeCard extends LitElement {
     }
 
     _titleBox() {
-        var legend = '';
-        if (this._config.show_donut && this._config.show_donut !== false) {
-            legend = `min: ${this._config.min} - max: ${this._config.max}`;
+        const switchStateTitle = this._currentSwitchState().title;
+        const configTitle = this._config.title;
+
+        if (switchStateTitle && switchStateTitle !== '') {
+            return `<tr id="top-container">
+                    <td id="title" class="container" colspan="2" nowrap>
+                    ${switchStateTitle}
+                    </td>
+                    </tr>`;
+        } else if (configTitle && configTitle !== '') {
+            return `<tr id="top-container">
+                    <td id="title" class="container" colspan="2" nowrap>
+                    ${configTitle}
+                    </td>
+                    </tr>`;
+        } else {
+            return '';
         }
-        if (this._config.show_diagram && this._config.show_diagram !== false) {
-            legend = `min: ${this._config.min} - max: ${this._config.max}`;
-        }
-        const info = (this._config.show_info) ? `${window.innerWidth}w x${window.innerHeight}h` : '';
-        const title = this._config.title || "&nbsp;";
-        return `<td id="title" class="container" valign='middle' colspan=2>
-                ${info} ${title} ${legend}
-                </td>`;
     }
+    
+    _captionBox() {
+        const switchStateCaption = this._currentSwitchState().caption;
+        const configCaption = this._config.caption;
+
+        if (switchStateCaption && switchStateCaption !== '') {
+            return `<tr id="bottom-container">
+                    <td id="caption" colspan="2" nowrap>
+                    ${switchStateCaption}
+                    </td>
+                    </tr>`;
+        } else if (configCaption && configCaption !== '') {
+            return `<tr id="bottom-container">
+                    <td id="caption" colspan="2" nowrap>
+                    ${configCaption}
+                    </td>
+                    </tr>`;
+        } else {
+            return '';
+        }        
+    }
+   
 
     _iconBox() {
-        var iconcontainerid = '';
+        var iconcontainerid = 'button-icon-container';
         if (this._config.show_donut && this._config.show_donut !== false) {
             iconcontainerid = 'donut-icon-container';
         }
@@ -120,11 +148,11 @@ class RSGaugeCard extends LitElement {
         const onoroff = this.hass.states[this._config.entity].state === 'on' ? 'on' : 'off';
 
         return (this._config.show_button && this._config.show_button !== false)
-                ? `<td id="${iconcontainerid}" class="container" valign='middle'>
-                   <button style="color: ${buttonColor}">
+                ? `<td id="${iconcontainerid}" class="container" style="color: ${buttonColor}">                   
                    <ha-icon class="${onoroff}" icon="${icon}">
                    </ha-icon>
-                   </button>${iconname}</td>`
+                   ${iconname}
+                   </td>`
                 : '';
     }
 
@@ -135,8 +163,9 @@ class RSGaugeCard extends LitElement {
         const name = this._config.name || "";
         return (this._config.show_diagram && this._config.show_diagram !== false)
                 ? `<td id="right-container" class="container">
+                   <div id="right-container">
                    <div id="explanations" class="explanations">
-                   <div id="name" class="name"><ha-icon icon="${miniicon}" style="--mdc-icon-size: 32px;"></ha-icon>${name}</div>
+                   <div id="name" class="name"><ha-icon icon="${miniicon}" id="miniicon"></ha-icon>${name}</div>
                    <div id="value" class="value">${this._value().toPrecision()}</div>
                    <div id="measurement" class="measurement">${this._config.measurement}</div>        
                    </div>
@@ -152,6 +181,7 @@ class RSGaugeCard extends LitElement {
                    <div id="maxmark" class="maxmark">&nbsp;${this._config.max}&nbsp;</div>
                    </div>
                    </div>             
+                   </div>
                    </td>`
                 : '';
     }
@@ -167,16 +197,6 @@ class RSGaugeCard extends LitElement {
                     color="${this._config.donut_color || 'lightgreen'}"
                     backcolor="${this._config.donut_backcolor || 'darkgreen'}">
                    </donut-chart>
-                   </td>`
-                : '';
-    }
-
-    _captionBox() {
-        const caption = this._currentSwitchState().caption || this._config.caption || "";
-
-        return (this._config.show_caption && this._config.show_caption !== false)
-                ? `<td id="caption" colspan=2 nowrap>
-                   ${caption}
                    </td>`
                 : '';
     }
@@ -202,23 +222,15 @@ class RSGaugeCard extends LitElement {
 
         return html `
             <ha-card>                    
-                <div id="card" @click=${this.buttonClicked}>        
-                    <table id="container" cellspacing=0 cellpadding=0 style='width: 100%; height: 100%;'>
-                        <tbody>
-                            <tr id="top-container">
-                                ${unsafeHTML(this._titleBox())}                        
-                            </tr>
-                            <tr id="mid-container">
-                                ${unsafeHTML(this._iconBox())}
-                                ${unsafeHTML(this._donutBox())}
-                                ${unsafeHTML(this._diagramBox())}
-                            </tr>
-                            <tr id="bottom-container">
-                                ${unsafeHTML(this._captionBox())}
-                            </tr>
-                        </tbody>
-                    </table>        
-                </div>
+                <table class="container" cellspacing=0 cellpadding=0 @click=${this.buttonClicked}>
+                    ${unsafeHTML(this._titleBox())}
+                    <tr id="mid-container">
+                        ${unsafeHTML(this._iconBox())}
+                        ${unsafeHTML(this._donutBox())}
+                        ${unsafeHTML(this._diagramBox())}
+                    </tr>
+                    ${unsafeHTML(this._captionBox())}
+                </table>   
                 <style>
                     ${this._config.styles ? unsafeCSS(this._config.styles) : ''}
                 </style>         
@@ -241,6 +253,8 @@ class RSGaugeCard extends LitElement {
 
         } else if (tapAction.action === "call-service" && tapAction.service === "browser_mod.popup") {
             this.hass.callService("browser_mod", "popup", tapAction.service_data);
+        } else if (tapAction.action === "call-service" && tapAction.service === "browser_mod.navigate") {
+            this.hass.callService("browser_mod", "navigate", tapAction.service_data);
         } else if (tapAction.action === "call-service" && tapAction.service) {
             this.hass.callService(tapAction.domain || domain, tapAction.service, tapAction.service_data || {entity_id: entityId});
         } else {
@@ -269,7 +283,9 @@ class RSGaugeCard extends LitElement {
                     break;
             }
 
-            this.hass.callService(domain, service, {entity_id: entityId});
+            if (entityId !== 'dummy') {
+                this.hass.callService(domain, service, {entity_id: entityId});
+            }
         }
     }
 
@@ -277,7 +293,7 @@ class RSGaugeCard extends LitElement {
         const event = new Event("ll-custom", {
             bubbles: true,
             cancelable: false,
-            composed: true,
+            composed: true
         });
         event.detail = eventData;
 
@@ -285,23 +301,12 @@ class RSGaugeCard extends LitElement {
     }
 
     static styles = css`
-        #card {
-            width: 100%;
-            height: calc(100% - 10px);
-            padding: 0px;
-            margin: 0px;
-            margin-top: -5px;
+        table.container {            
+            width: 100% !important;
+            height: 100% !important;
+            spacing: 0px;            
+            padding: 0px;  
             cursor: pointer;
-        }
-
-        #main {
-            width: 100%;
-            display: grid;
-        }
-
-        #container {
-            width: 100%;
-            padding: 0px;
         }
 
         tr#top-container {
@@ -309,10 +314,8 @@ class RSGaugeCard extends LitElement {
             margin: 0px;
             padding: 0px;
             borderradius: 0px;
-            height: auto;
+            height: 20px !important;
             width: 100%;
-            vertical-align: center;
-            text-align: center;
         }
 
         tr#mid-container {
@@ -320,8 +323,8 @@ class RSGaugeCard extends LitElement {
             margin: 0px;
             padding: 0px;
             borderradius: 0px;
-            height: 100%;
-            width: auto;
+            height: 100% !important;    
+            width: 10% !important;
             vertical-align: center;
             text-align: center;
         }
@@ -331,7 +334,7 @@ class RSGaugeCard extends LitElement {
             margin: 0px;
             padding: 0px;
             borderradius: 0px;
-            height: auto;
+            height: 1%;
             width: 100%;
             vertical-align: center;
             text-align: center;
@@ -366,12 +369,32 @@ class RSGaugeCard extends LitElement {
             margin: 0px;
             padding: 0px;
             borderradius: 0px;
-            height: 100%;            
+            height: 100% !important;    
+            width: 10% !important;
             vertical-align: center;
             text-align: center;
         }
+                                
+        td#button-icon-container {
+            border: 0px solid transparent;
+            margin: 0px;
+            padding: 0px;
+            borderradius: 0px;
+            height: calc(25vw / 6) !important;    
+            width: 10% !important;
+            vertical-align: center;
+            text-align: center;
+        }                
+                                
+        ha-icon {
+            --mdc-icon-size: calc(25vw / 6);
+        }     
+                                
+        ha-icon#miniicon {
+            --mdc-icon-size: 24px;
+        }                                    
 
-        #right-container {
+        td#right-container {
             border: 0px solid transparent;
             margin: 0px;
             padding: 0px;
@@ -380,6 +403,14 @@ class RSGaugeCard extends LitElement {
             width: 100%;
         }
 
+        div#right-container {            
+            margin: 0px;
+            padding: 0px;
+            borderradius: 0px;
+            height: 100%;
+            width: calc(100% - 10px);
+        }
+                                
         td#caption {
             height: 20px;
             margin: 0px;
@@ -393,16 +424,16 @@ class RSGaugeCard extends LitElement {
             color: white;
             cursor: pointer;
             border: none;
+            height: 100% !important;    
+            width: 10% !important;
+            vertical-align: center;
+            text-align: center;                                
         }
 
         #caption {
             font-size: 17.5px;
             text-align: center;
             width: 100%;
-        }
-
-        ha-icon {
-            --mdc-icon-size: calc(25vw / 6);
         }
 
         #body {
@@ -460,7 +491,7 @@ class RSGaugeCard extends LitElement {
             padding-top: 0px;
             font-size: 14px;
             font-weight: normal;
-            color: white;
+            color: val(--primary-text-color);
             width: 50%;
             text-align: left;
         }
@@ -469,16 +500,15 @@ class RSGaugeCard extends LitElement {
             padding-top: 0px;
             font-size: 14px;
             font-weight: normal;
-            color: white;
+            color: val(--primary-text-color);
             width: 50%;
             text-align: right;
         }
 
         #title {
-            padding: 5px;
             font-size: 17.5px;
             font-weight: normal;
-            color: black;
+            color: val(--primary-text-color);
             text-align: center;
             white-space: nowrap;
         }
@@ -486,7 +516,7 @@ class RSGaugeCard extends LitElement {
         #caption {
             font-size: 17.5px;
             font-weight: normal;
-            color: black;
+            color: val(--primary-text-color);
             text-align: center;
             white-space: nowrap;
         }
@@ -582,6 +612,7 @@ class RSGaugeCard extends LitElement {
                 color: black;
                 text-align: center;
                 white-space: nowrap;
+                padding: 0px;
             }
 
             #caption {
@@ -639,5 +670,5 @@ class RSGaugeCard extends LitElement {
     `;
 }
 
-customElements.define("rs-gauge-card", RSGaugeCard);
+customElements.define("rs-button-gauge-card", RSButtonGaugeCard);
 // End of File
