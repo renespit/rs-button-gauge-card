@@ -68,7 +68,7 @@ class RSButtonGaugeCard extends LitElement {
     }
 
     firstUpdated() {
-        const container = this.shadowRoot.getElementById("card");
+        const container = this.shadowRoot.getElementById("container");
 
         if (container) {
             const resizeObserver = new ResizeObserver((entries) => {
@@ -139,8 +139,8 @@ class RSButtonGaugeCard extends LitElement {
         }
 
         const name = this._config.name || "";
-        const iconname = (this._config.show_donut && this._config.show_donut !== false)
-                ? `<div id="iconname" class="name">${name} ${this._value().toPrecision()}${this._config.measurement}</div>`
+        const icontext = (this._config.show_donut && this._config.show_donut !== false)
+                ? `<div id="icontext" class="name" style="color: var(--icon-text-color)">${name} ${this._value().toPrecision()}${this._config.measurement}</div>`
                 : '';
 
         const buttonColor = this._currentSwitchState().color || this._config.color || "gray";
@@ -151,7 +151,7 @@ class RSButtonGaugeCard extends LitElement {
                 ? `<td id="${iconcontainerid}" class="container" style="color: ${buttonColor}">                   
                    <ha-icon class="${onoroff}" icon="${icon}">
                    </ha-icon>
-                   ${iconname}
+                   ${icontext}
                    </td>`
                 : '';
     }
@@ -221,8 +221,9 @@ class RSButtonGaugeCard extends LitElement {
         }
 
         return html `
-            <ha-card>                    
-                <table class="container" cellspacing=0 cellpadding=0 @click=${this.buttonClicked}>
+            <ha-card>  
+                <link rel="stylesheet" href="/local/community/rs-button-gauge-card/rs-button-gauge-card.css">  
+                <table id="container" class="container" cellspacing=0 cellpadding=0 @click=${this.buttonClicked}>
                     ${unsafeHTML(this._titleBox())}
                     <tr id="mid-container">
                         ${unsafeHTML(this._iconBox())}
@@ -300,374 +301,6 @@ class RSButtonGaugeCard extends LitElement {
         this.dispatchEvent(event);
     }
 
-    static styles = css`
-        table.container {            
-            width: 100% !important;
-            height: 100% !important;
-            spacing: 0px;            
-            padding: 0px;  
-            cursor: pointer;
-        }
-
-        tr#top-container {
-            border: 0px solid transparent;
-            margin: 0px;
-            padding: 0px;
-            borderradius: 0px;
-            height: 20px !important;
-            width: 100%;
-        }
-
-        tr#mid-container {
-            border: 0px solid transparent;
-            margin: 0px;
-            padding: 0px;
-            borderradius: 0px;
-            height: 100% !important;    
-            width: 10% !important;
-            vertical-align: center;
-            text-align: center;
-        }
-                                
-        tr#bottom-container {
-            border: 0px solid transparent;
-            margin: 0px;
-            padding: 0px;
-            borderradius: 0px;
-            height: 1%;
-            width: 100%;
-            vertical-align: center;
-            text-align: center;
-        }
-
-        td#icon-container {
-            border: 0px solid transparent;
-            margin: 0px;
-            padding: 0px;
-            borderradius: 0px;
-            height: 100%;
-            width: 100%;
-            vertical-align: center;
-            text-align: center;
-        }
-
-        td#donut-icon-container {
-            position: absolute;
-            top: calc(50% - (calc(25vw / 6)) / 2);
-            border: 0px solid transparent;
-            margin: 0px;
-            padding: 0px;
-            borderradius: 0px;
-            height: 100%;
-            width: 100%;
-            vertical-align: center;
-            text-align: center;
-        }
-                                
-        td#diagram-icon-container {
-            border: 0px solid transparent;
-            margin: 0px;
-            padding: 0px;
-            borderradius: 0px;
-            height: 100% !important;    
-            width: 10% !important;
-            vertical-align: center;
-            text-align: center;
-        }
-                                
-        td#button-icon-container {
-            border: 0px solid transparent;
-            margin: 0px;
-            padding: 0px;
-            borderradius: 0px;
-            height: calc(25vw / 6) !important;    
-            width: 10% !important;
-            vertical-align: center;
-            text-align: center;
-        }                
-                                
-        ha-icon {
-            --mdc-icon-size: calc(25vw / 6);
-        }     
-                                
-        ha-icon#miniicon {
-            --mdc-icon-size: 24px;
-        }                                    
-
-        td#right-container {
-            border: 0px solid transparent;
-            margin: 0px;
-            padding: 0px;
-            borderradius: 0px;
-            height: 100%;
-            width: 100%;
-        }
-
-        div#right-container {            
-            margin: 0px;
-            padding: 0px;
-            borderradius: 0px;
-            height: 100%;
-            width: calc(100% - 10px);
-        }
-                                
-        td#caption {
-            height: 20px;
-            margin: 0px;
-            padding: 0px;
-        }
-
-        button {
-            align-items: center;
-            padding: 0px;
-            background-color: transparent;
-            color: white;
-            cursor: pointer;
-            border: none;
-            height: 100% !important;    
-            width: 10% !important;
-            vertical-align: center;
-            text-align: center;                                
-        }
-
-        #caption {
-            font-size: 17.5px;
-            text-align: center;
-            width: 100%;
-        }
-
-        #body {
-            border: 0px solid transparent;
-            width: 100%;
-            display: grid;
-        }
-
-        div.tube {
-            background-color: darkgreen;
-            border-radius: 8px;
-            width: 100%;
-            height: 16px;
-        }
-
-        div.slider {
-            background-color: lightgreen;
-            border-radius: 8px;
-            height: 16px;
-            font-size: 1px;
-        }
-
-        #explanations {
-            display: flex;
-        }
-
-        #name {
-            font-size: 17.5px;
-            font-weight: normal;
-            color: black;
-            width: 50%;
-            display: flex;
-        }
-
-        #value {
-            font-size: 17.5px;
-            font-weight: normal;
-            color: black;
-            text-align: right;
-            width: 50%;
-        }
-
-        #measurement {
-            font-size: 17.5px;
-            font-weight: normal;
-            color: black;
-            text-align: right;
-        }
-
-        #markers {
-            display: flex;
-        }
-
-        #minmark {
-            padding-top: 0px;
-            font-size: 14px;
-            font-weight: normal;
-            color: val(--primary-text-color);
-            width: 50%;
-            text-align: left;
-        }
-
-        #maxmark {
-            padding-top: 0px;
-            font-size: 14px;
-            font-weight: normal;
-            color: val(--primary-text-color);
-            width: 50%;
-            text-align: right;
-        }
-
-        #title {
-            font-size: 17.5px;
-            font-weight: normal;
-            color: val(--primary-text-color);
-            text-align: center;
-            white-space: nowrap;
-        }
-
-        #caption {
-            font-size: 17.5px;
-            font-weight: normal;
-            color: val(--primary-text-color);
-            text-align: center;
-            white-space: nowrap;
-        }
-
-        /* iPhone 12 en vergelijkbare apparaten */
-        @media (min-width: 390px) and (max-width: 414px) {
-            ha-icon {
-                --mdc-icon-size: calc(30vw / 2.5);
-            }
-
-            #title {                
-                font-size: 10px;
-                font-weight: normal;
-                color: black;
-                text-align: center;
-                white-space: nowrap;
-            }
-
-            #caption {
-                font-size: 10px;
-                font-weight: normal;
-                color: black;
-                text-align: center;
-                white-space: nowrap;
-            }
-
-            #name {
-                font-size: 10px;
-                font-weight: normal;
-                color: black;
-                width: 50%;
-                display: flex;
-            }
-
-            #value {
-                font-size: 10px;
-                font-weight: normal;
-                color: black;
-                text-align: right;
-                width: 50%;
-            }
-
-            #measurement {
-                font-size: 10px;
-                font-weight: normal;
-                color: black;
-                text-align: right;
-            }
-
-            #minmark {
-                display: none;
-                padding-top: 0px;
-                font-size: 10px;
-                font-weight: normal;
-                color: white;
-                width: 50%;
-                text-align: left;
-            }
-
-            #maxmark {
-                display: none;
-                padding-top: 0px;
-                font-size: 10px;
-                font-weight: normal;
-                color: white;
-                width: 50%;
-                text-align: right;
-            }
-        }
-                                
-        /* iPad Mini en vergelijkbare apparaten */
-        @media (min-width: 900px) and (max-width: 1200px) {
-            ha-icon {
-                --mdc-icon-size: calc(25vw / 6);
-            }
-                                
-            tr#bottom-container {
-                border: 0px solid transparent;
-                margin: 0px;
-                margin-bottom: 20px;
-                padding: 0px;
-                padding-bottom: 0px;
-                borderradius: 0px;
-                height: auto;
-                width: 100%;
-                vertical-align: center;
-                text-align: center;
-            }                                
-
-            #title {                
-                font-size: 12px;
-                font-weight: normal;
-                color: black;
-                text-align: center;
-                white-space: nowrap;
-                padding: 0px;
-            }
-
-            #caption {
-                font-size: 12px;
-                font-weight: normal;
-                color: black;
-                text-align: center;
-                white-space: nowrap;
-            }
-
-            #name {
-                font-size: 12px;
-                font-weight: normal;
-                color: black;
-                width: 50%;
-                display: flex;
-            }
-
-            #value {
-                font-size: 12px;
-                font-weight: normal;
-                color: black;
-                text-align: right;
-                width: 50%;
-            }
-
-            #measurement {
-                font-size: 12px;
-                font-weight: normal;
-                color: black;
-                text-align: right;
-            }
-
-            #minmark {
-                display: none;
-                padding-top: 0px;
-                font-size: 10px;
-                font-weight: normal;
-                color: white;
-                width: 50%;
-                text-align: left;
-            }
-
-            #maxmark {
-                display: none;
-                padding-top: 0px;
-                font-size: 10px;
-                font-weight: normal;
-                color: white;
-                width: 50%;
-                text-align: right;
-            }
-        }                                
-
-    `;
 }
 
 customElements.define("rs-button-gauge-card", RSButtonGaugeCard);
