@@ -25,6 +25,7 @@ Remotecontrol example
     mkdir rs-button-gauge-card
     cd rs-button-gauge-card
     wget https://github.com/renespit/rs-button-gauge-card/blob/main/rs-button-gauge-card.js
+    wget https://github.com/renespit/rs-button-gauge-card/blob/main/rs-button-gauge-card.css
 &nbsp;<br />
 Add in your configuration.yaml the lines:
 
